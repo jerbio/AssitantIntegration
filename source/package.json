@@ -12,12 +12,15 @@
     "shell": "firebase experimental:functions:shell",
     "start": "npm run shell",
     "deploy": "npm run preDeploy && npm run deployFirebase",
+    "localdeploy": "npm run preDeploy && npm run localDeployFirebase",
     "logs": "firebase functions:log",
-    "preDeploy": "npm run lint .\\ && node predeploy.js",
-    "deployFirebase": "cd ..\\deploy && firebase deploy --project tiler-jmlhju"
+    "preDeploy": "npm run lint .\\ && node --experimental-modules predeploy.js",
+    "deployFirebase": "cd ..\\deploy && firebase deploy --project tiler-jmlhju",
+    "localDeployFirebase": "cd ..\\deploy && firebase serve --only functions"
   },
   "dependencies": {
     "actions-on-google": "^2.0.0",
+    "axios": "^0.19.2",
     "firebase-admin": "^8.2.0",
     "firebase-functions": "^3.1.0",
     "ncp": "^2.0.0"

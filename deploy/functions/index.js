@@ -22,7 +22,7 @@ const {
     BasicCard,
   } = require('actions-on-google');
 
-
+  // const {utility} = require('./utility.js');
 // Import the firebase-functions package for deployment.
 const functions = require('firebase-functions');
 
@@ -40,16 +40,18 @@ app.intent('Default Welcome Intent', (conv) => {
 // Handle the Dialogflow intent named 'favorite color'.
 // The intent collects a parameter named 'color'.
 app.intent('Lookup schedule intent', (conv, {scheduleTime}) => {
+  setTimeout(() => {
     if (conv.data.userName) {
       // If we collected user name previously, address them by name and use SSML
       // to embed an audio snippet in the response.
       conv.close(`<speak>${conv.data.userName}, your shcedule for today ` +
-        `is tomorow`+
+        `is tomorow again`+
         `${JSON.stringify(scheduleTime)}`);
     } else {
         conv.close(`<speak>We out son`);
     }
-  });
+  }, 300);
+});
 
   // Handle the Dialogflow intent named 'actions_intent_PERMISSION'. If user
 // agreed to PERMISSION prompt, then boolean value 'permissionGranted' is true.
@@ -87,7 +89,7 @@ app.intent('permissionsIntent', (conv, params, permissionGranted) => {
     'blue grey coffee': {
       title: 'Blue Grey Coffee',
       text: `Calling out to rainy days, Blue Grey Coffee `+
-            +`brings to mind your favorite coffee shop.`,
+            `brings to mind your favorite coffee shop.`,
       image: {
         url: 'https://storage.googleapis.com/material-design/publish/material_v_12/assets/0BxFyKV4eeNjDZUdpeURtaTUwLUk/style-color-colorsystem-gray-secondary-161116.png',
         accessibilityText: 'Blue Grey Coffee Color',
