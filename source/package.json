@@ -14,7 +14,7 @@
     "deploy": "npm run preDeploy && npm run deployFirebase",
     "localdeploy": "npm run preDeploy && npm run localDeployFirebase",
     "logs": "firebase functions:log",
-    "preDeploy": "npm run lint .\\ && node --experimental-modules predeploy.js",
+    "preDeploy": "npm run lint .\\ && node predeploy.js",
     "deployFirebase": "cd ..\\deploy && firebase deploy --project tiler-jmlhju",
     "localDeployFirebase": "cd ..\\deploy && firebase serve --only functions"
   },

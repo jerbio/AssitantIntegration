@@ -1,7 +1,7 @@
 let constants = {
-    url: 'https://mytilerkid.azurewebsites.net/',
-    localUrl: 'https://https://localhost:44322/',
-    publicUrl: 'https://https://localhost:44322/',
+    url: '',
+    localUrl: 'https://localhost:44322/',
+    publicUrl: 'https://mytilerkid.azurewebsites.net/',
     api: '',
 };
 let isProd = false;
@@ -13,6 +13,7 @@ if (process.env &&
 isLocal = !isProd;
 if (isLocal) {
     constants.url = constants.localUrl;
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 } else {
     constants.url = constants.publicUrl;
 }

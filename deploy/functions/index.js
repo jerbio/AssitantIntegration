@@ -23,6 +23,8 @@ const {
   } = require('actions-on-google');
 
   // const {utility} = require('./utility.js');
+const {scheduleApi} = require('./service/schedule.js');
+const {scheduleConversation} = require('./conversation/schedule.js');
 // Import the firebase-functions package for deployment.
 const functions = require('firebase-functions');
 
@@ -40,17 +42,23 @@ app.intent('Default Welcome Intent', (conv) => {
 // Handle the Dialogflow intent named 'favorite color'.
 // The intent collects a parameter named 'color'.
 app.intent('Lookup schedule intent', (conv, {scheduleTime}) => {
-  setTimeout(() => {
+  let retValue = scheduleApi.getSchedule({});
+  retValue.then((response) => {
+    let subEvents = scheduleApi.getSubEventsFromScheduleResponse(response);
+    let conversation = scheduleConversation.processSubEvents({subEvents});
+
     if (conv.data.userName) {
-      // If we collected user name previously, address them by name and use SSML
+      // If we collected user name previously,
+      // address them by name and use SSML
       // to embed an audio snippet in the response.
-      conv.close(`<speak>${conv.data.userName}, your shcedule for today ` +
-        `is tomorow again`+
-        `${JSON.stringify(scheduleTime)}`);
+      conv.close(`Hey ${conv.data.userName}, Here is your update, ` +
+        `${conversation}. Wanna know more?`);
     } else {
-        conv.close(`<speak>We out son`);
+        conv.close(`We out son`);
     }
-  }, 300);
+  });
+
+  return retValue;
 });
 
   // Handle the Dialogflow intent named 'actions_intent_PERMISSION'. If user
