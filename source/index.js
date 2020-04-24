@@ -22,9 +22,8 @@ const {
     BasicCard,
   } = require('actions-on-google');
 
-  // const {utility} = require('./utility.js');
-const {scheduleApi} = require('./service/schedule.js');
-const {scheduleConversation} = require('./conversation/schedule.js');
+const ScheduleLookUpIntent = require('./intents/scheduleLookupIntent.js');
+
 // Import the firebase-functions package for deployment.
 const functions = require('firebase-functions');
 
@@ -41,25 +40,29 @@ app.intent('Default Welcome Intent', (conv) => {
 
 // Handle the Dialogflow intent named 'favorite color'.
 // The intent collects a parameter named 'color'.
-app.intent('Lookup schedule intent', (conv, {scheduleTime}) => {
-  let retValue = scheduleApi.getSchedule({});
-  retValue.then((response) => {
-    let subEvents = scheduleApi.getSubEventsFromScheduleResponse(response);
-    let conversation = scheduleConversation.processSubEvents({subEvents});
+let scheduleLookUpIntent = new ScheduleLookUpIntent();
+app.intent(scheduleLookUpIntent.name, scheduleLookUpIntent.handler);
+// const {scheduleApi} = require('./service/schedule.js');
+// const {scheduleConversation} = require('./conversation/schedule.js');
+// app.intent('Lookup schedule intent', (conv, {scheduleTime}) => {
+//   let retValue = scheduleApi.getSchedule(scheduleTime);
+//   retValue.then((response) => {
+//     let subEvents = scheduleApi.getSubEventsFromScheduleResponse(response);
+//     let conversation = scheduleConversation.processSubEvents({subEvents});
 
-    if (conv.data.userName) {
-      // If we collected user name previously,
-      // address them by name and use SSML
-      // to embed an audio snippet in the response.
-      conv.close(`Hey ${conv.data.userName}, Here is your update, ` +
-        `${conversation}. Wanna know more?`);
-    } else {
-        conv.close(`We out son`);
-    }
-  });
+//     if (conv.data.userName) {
+//       // If we collected user name previously,
+//       // address them by name and use SSML
+//       // to embed an audio snippet in the response.
+//       conv.close(`Hey ${conv.data.userName}, Here is your update, ` +
+//         `${conversation}. Wanna know more?`);
+//     } else {
+//         conv.close(`We out son`);
+//     }
+//   });
 
-  return retValue;
-});
+//   return retValue;
+// });
 
   // Handle the Dialogflow intent named 'actions_intent_PERMISSION'. If user
 // agreed to PERMISSION prompt, then boolean value 'permissionGranted' is true.

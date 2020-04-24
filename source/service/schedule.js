@@ -1,3 +1,5 @@
+'use strict';
+
 const {constants} = require('../constants.js');
 const {utility} = require('../utility.js');
 const axios = require('axios').default;
