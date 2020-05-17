@@ -7,6 +7,10 @@ let scheduleConversation = {
         }
         return retValue;
     },
+
+    moreSubEventProcessing: ((subEvents) => {
+
+    }),
 };
 
 module.exports = {scheduleConversation};

@@ -17,6 +17,6 @@ if (isLocal) {
 } else {
     constants.url = constants.publicUrl;
 }
-
+constants.url = constants.publicUrl;
 constants.api = constants.url+'api/';
 module.exports = {constants};

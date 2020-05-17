@@ -30,6 +30,60 @@ let utility = {
         }
         return retValue;
     },
+
+    isFunction: (data) => {
+        let RetValue = false;
+        if (typeof (data) === 'function') {
+            RetValue = true;
+        }
+        return RetValue;
+    },
+    isObject: (data) => {
+        let RetValue = false;
+        if ((typeof (data) === 'object') && (data !== null)) {
+            RetValue = true;
+        }
+        return RetValue;
+    },
+    isString: (data) => {
+        let RetValue = false;
+        if ((typeof (data) === 'string') && (data !== null)) {
+            RetValue = true;
+        }
+        return RetValue;
+    },
+    isNumber: (data) => {
+        let RetValue = false;
+        if ((typeof (data) === 'number') && (data !== null)) {
+            RetValue = true;
+        }
+        return RetValue;
+    },
+    isNull: (data) => {
+        let RetValue = false;
+        if ((typeof (data) === 'object') && (data === null)) {
+            RetValue = true;
+        }
+        return RetValue;
+    },
+    isArray: (data) => {
+        let RetValue = Array.isArray(data);
+        return RetValue;
+    },
+    isUndefined: (data) => {
+        let RetValue = false;
+        if ((typeof (data) === 'undefined') && (data !== null)) {
+            RetValue = true;
+        }
+        return RetValue;
+    },
+    isUndefinedOrNull: (data) => {
+        let RetValue = false;
+        if (isUndefined(data) || isNull(data)) {
+            RetValue = true;
+        }
+        return RetValue;
+    },
 };
 
 module.exports = {utility};
