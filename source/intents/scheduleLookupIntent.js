@@ -33,6 +33,7 @@ class ScheduleLookUpIntent extends Intent {
      * @return {Promise!} returns of response back to google actions api.
      */
     processIntent(conv, {scheduleTime}) {
+        Intent.initializeTilerStorage(conv);
         let retValue = scheduleApi.getSchedule(scheduleTime);
         retValue.then((response) => {
             let subEvents = scheduleApi.
@@ -50,10 +51,27 @@ class ScheduleLookUpIntent extends Intent {
             } else {
                 conv.ask(`Here is your update, ` +
                 `${conversation}. Wanna know more?`);
+                // conv.data.tilerApp.subEvents = subEvents;
+                conv.user.storage.tilerApp.subEvents = subEvents;
             }
         });
 
         return retValue;
+    }
+
+    /**
+     * Function handles yes response to a schedule lookup
+     * @param {object!} conv conversation object for sending response
+     * to google servers
+     * @param {object!} param1 hold the user generated inputs
+     */
+    yeaIntent(conv, {scheduleTime}) {
+        Intent.initializeTilerStorage(conv);
+        let subEvents = conv.user.storage.tilerApp.subEvents;
+        let moreProcessingString = scheduleConversation.
+            moreSubEventProcessing(subEvents);
+
+        conv.close(moreProcessingString);
     }
 
     /**
@@ -63,6 +81,7 @@ class ScheduleLookUpIntent extends Intent {
      * @param {object!} param1 hold the user generated inputs
      */
     nayIntent(conv, {scheduleTime}) {
+        Intent.initializeTilerStorage(conv);
         if (conv.data.userName) {
         // If we collected user name previously,
         // address them by name and use SSML
@@ -71,38 +90,6 @@ class ScheduleLookUpIntent extends Intent {
         } else {
             conv.close(`Goodbye`);
         }
-    }
-
-
-    /**
-     * Function handles yes response to a schedule lookup
-     * @param {object!} conv conversation object for sending response
-     * to google servers
-     * @param {object!} param1 hold the user generated inputs
-     * @return {object!} promise for handling async processing of request
-     */
-    yeaIntent(conv, {scheduleTime}) {
-        console.log('WAS there a response may be ');
-        console.log(JSON.stringify(scheduleTime));
-        let retValue = scheduleApi.getSchedule(scheduleTime);
-        retValue.then((response) => {
-            // let subEvents = scheduleApi.
-            //     getSubEventsFromScheduleResponse(response);
-            // console.log(subEvents);
-
-            if (conv.data.userName) {
-            // If we collected user name previously,
-            // address them by name and use SSML
-            // to embed an audio snippet in the response.
-                conv.close(`Goodbye ${conv.data.userName}`);
-            } else {
-                console.log('WAS there a response may be ');
-                console.log(JSON.stringify(scheduleTime));
-                conv.close(`Goodbye`);
-            }
-        });
-
-        return retValue;
     }
 }
 

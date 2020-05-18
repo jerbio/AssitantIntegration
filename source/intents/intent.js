@@ -71,6 +71,20 @@ class Intent {
     get app() {
         return this.app_;
     }
+
+    /**
+     * Function initializes and sets up object needed across conversations
+     * @param {bject!} conv google actions conversation object.
+     */
+    static initializeTilerStorage(conv) {
+        if (conv.user.storage && !conv.user.storage.tilerApp) {
+            conv.user.storage.tilerApp = {};
+        }
+
+        if (!conv.data.tilerApp) {
+            conv.data.tilerApp = {};
+        }
+    }
 }
 
 module.exports = {Intent};
