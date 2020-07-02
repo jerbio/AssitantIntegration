@@ -3,6 +3,10 @@ let constants = {
     localUrl: 'https://localhost:44322/',
     publicUrl: 'https://mytilerkid.azurewebsites.net/',
     api: '',
+    oneDayInMs: 86400000,
+    oneHourInMs: 3600000,
+    oneMinunteInMs: 60000,
+    oneSecondInMs: 1000,
 };
 let isProd = false;
 if (process.env &&
@@ -17,6 +21,6 @@ if (isLocal) {
 } else {
     constants.url = constants.publicUrl;
 }
-
+constants.url = constants.localUrl;
 constants.api = constants.url+'api/';
 module.exports = {constants};

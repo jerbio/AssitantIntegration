@@ -23,6 +23,7 @@ const {
   } = require('actions-on-google');
 
 const ScheduleLookUpIntent = require('./intents/scheduleLookupIntent.js');
+const ProcrastinateAllIntent = require('./intents/procrastinateAllIntent.js');
 
 // Import the firebase-functions package for deployment.
 const functions = require('firebase-functions');
@@ -42,6 +43,8 @@ app.intent('Default Welcome Intent', (conv) => {
 // The intent collects a parameter named 'color'.
 // eslint-disable-next-line no-unused-vars
 let scheduleLookUpIntent = new ScheduleLookUpIntent(app);
+// eslint-disable-next-line no-unused-vars
+let procrastinateAllIntent = new ProcrastinateAllIntent(app);
 
 // Handle the Dialogflow intent named 'actions_intent_PERMISSION'. If user
 // agreed to PERMISSION prompt, then boolean value 'permissionGranted' is true.

@@ -7,7 +7,7 @@ const axios = require('axios').default;
 let scheduleApi = {
     /**
      * Function retrieves the tiler schedule from the tiler server
-     * @param {object?} startAndEndParams with stat and end properties.
+     * @param {object?} startAndEndParams with start and end properties.
      * @return {object!} returns a promise of the rest request
      * If start isn't provided it defaults to 12:00 of current day
      * If end isn't provided it defaults to 12:00 of day after start
