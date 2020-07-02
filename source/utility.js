@@ -79,7 +79,7 @@ let utility = {
     },
     isUndefinedOrNull: (data) => {
         let RetValue = false;
-        if (isUndefined(data) || isNull(data)) {
+        if (utility.isUndefined(data) || utility.isNull(data)) {
             RetValue = true;
         }
         return RetValue;

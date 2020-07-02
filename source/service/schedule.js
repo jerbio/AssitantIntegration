@@ -44,7 +44,6 @@ let scheduleApi = {
             })
             .then((response) => {
                 // handle success
-                // console.log(response);
                 return response.data;
             })
             .catch((error) => {
